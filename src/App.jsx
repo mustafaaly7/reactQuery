@@ -13,15 +13,15 @@ function App() {
 // Now example how it works 
 const fetchingApi = ()=>{
 const res = axios.get("https://fakestoreapi.com/products")
-return res
+return res // axios return an object that has the api data in key name data so always axios.data
 
 }
 
 const{data : products ,isLoading ,isError}= useQuery({ // now data: products means im destructuring the data key from object and changing the key name from data to products
-  queryKey : ["Products"],
+  queryKey : ["myProducts"],
   queryFn : fetchingApi,
 })
-console.log(products);
+console.log(products?.data);
 
   return (
     <>
