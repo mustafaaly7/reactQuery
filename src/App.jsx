@@ -1,6 +1,7 @@
 import axios from 'axios'
 import './App.css'
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from 'react-router'
 
 function App() {
 
@@ -13,6 +14,9 @@ function App() {
 // Now example how it works 
 const fetchingApi = ()=>{
 const res = axios.get("https://fakestoreapi.com/products")
+const output = res.data
+console.log(output);
+
 return res // axios return an object that has the api data in key name data so always axios.data
 
 }
@@ -21,11 +25,16 @@ const{data : products ,isLoading ,isError}= useQuery({ // now data: products mea
   queryKey : ["myProducts"],
   queryFn : fetchingApi,
 })
-console.log(products?.data);
-
+console.log("products" ,products);
+const navigate = useNavigate()
   return (
     <>
 
+{isLoading? 
+  <h1 className='text-center text-6xl'>Loadingg...</h1>: null}
+  {products?.data?.map((product,ind)=>(
+    <h1 key={ind} className='text-center  my-2' onClick={()=>navigate(`/product/${product.id}`)}>{product.title}</h1>
+  ))}
 
 
 
