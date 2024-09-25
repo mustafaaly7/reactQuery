@@ -22,8 +22,8 @@ return res // axios return an object that has the api data in key name data so a
 }
 
 const{data : products ,isLoading ,isError}= useQuery({ // now data: products means im destructuring the data key from object and changing the key name from data to products
-  queryKey : ["myProducts"],
-  queryFn : fetchingApi,
+  queryKey : ["myProducts"], // this will store the api in our cache means memory mai
+  queryFn : fetchingApi, // and this takes the function it gives status data and loading etc all by itself better than use state
 })
 console.log("products" ,products);
 const navigate = useNavigate()
@@ -32,7 +32,7 @@ const navigate = useNavigate()
 
 {isLoading? 
   <h1 className='text-center text-6xl'>Loadingg...</h1>: null}
-  {products?.data?.map((product,ind)=>(
+  {products?.data?.map((product,ind)=>( // why we using question mark after product means till the api stored in our variable tb tk undefined aiga tou undefined nh dikhain iske liye question mark use krte ky false value ain tou render hi na krein jb tk true na ain value
     <h1 key={ind} className='text-center  my-2' onClick={()=>navigate(`/product/${product.id}`)}>{product.title}</h1>
   ))}
 
